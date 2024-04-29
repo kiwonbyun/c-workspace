@@ -49,4 +49,3 @@ int main(void)
   printf("num3 = %d\n", num3);
   printf("num4 = %d\n", num4);
 }
- 
