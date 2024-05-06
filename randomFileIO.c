@@ -1,20 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#pragma warning(disable:4996)
+#define MAXFILENAME 50
 
 int main(){
-    FILE *fp;
-    char name[10];
-    fp = fopen("sample5.dat","wb");
-    if(fp ==NULL){
-        puts("파일을 개방핧 수 없습니다");
-        exit(1);
+    char fname[MAXFILENAME];
+    int c;
+    FILE *fp = NULL;
+    fprintf(stdout,"파일명을 입력하세요:");
+    scanf("%s", fname);
+    fp = fopen(fname, "r");
+    fseek(fp, 0, SEEK_END);
+    if(ftell(fp)==0){
+        return 0;
     }
-
-    gets(name);
-    while(strcmp(name, "END")){
-        fwrite(name, 10, 1,fp);
-        gets(name);
+    fseek(fp, -1, SEEK_CUR);
+    while(1){
+        c = fgetc(fp);
+        putchar(c);
+        if(ftell(fp)==1){
+            break;
+        }
+        fseek(fp,-2,SEEK_CUR);
     }
     fclose(fp);
+
 }
+
+
+
